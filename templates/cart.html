@@ -4,7 +4,16 @@
 <table class="table table-striped">
     <tr><th>Melon Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
 
-    <tr><td>{{ display_melon.common_name}}</td><td>{{ quantity }} </td><td>${{ '%0.2f'| format(display_melon.price) }}</td><td>${{ '%0.2f'| format(display_melon.price * quantity) }}</td></tr>
+{% for melon in cart %}
+{% set quantity = session['cart'][melon.id|string] %}
+    <tr>
+        <td>{{ melon.common_name}}</td>
+        <td>{{ quantity }} </td>
+        <td>${{ '%0.2f'| format(melon.price) }}</td>
+        <td>${{ '%0.2f'| format(melon.price * quantity) }}</td>
+    </tr>
+{% endfor %}
+
 
 
 </table>
