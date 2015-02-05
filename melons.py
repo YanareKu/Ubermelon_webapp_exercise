@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.secret_key = '\xf5!\x07!qj\xa4\x08\xc6\xf8\n\x8a\x95m\xe2\x04g\xbb\x98|U\xa2f\x03'
 app.jinja_env.undefined = jinja2.StrictUndefined
 
+
 @app.route("/")
 def index():
     """This is the 'cover' page of the ubermelon site"""
@@ -24,7 +25,7 @@ def show_melon(id):
     """This page shows the details of a given melon, as well as giving an
     option to buy the melon."""
     melon = model.get_melon_by_id(id)
-    print melon
+
     return render_template("melon_details.html",
                   display_melon = melon)
 
@@ -33,6 +34,10 @@ def shopping_cart():
     """TODO: Display the contents of the shopping cart. The shopping cart is a
     list held in the session that contains all the melons to be added. Check
     accompanying screenshots for details."""
+    # take 'cart' id from add_to_cart
+    # add to 'shopping_cart'
+
+
     return render_template("cart.html")
 
 @app.route("/add_to_cart/<int:id>")
@@ -43,14 +48,19 @@ def add_to_cart(id):
     Intended behavior: when a melon is added to a cart, redirect them to the
     shopping cart page, while displaying the message
     "Successfully added to cart" """
+    melon = model.get_melon_by_id(id)
+    
+    if 'cart' not in session:
+        session['cart'] = {}
 
-    if 'cart' in session:
-        'cart'.append(id)
+    if melon.common_name in session['cart']:
+        session['cart'][melon.common_name] += 1
     else:
-        session['cart'] = []
+        session['cart'][melon.common_name] = 1      
 
     flash("Successfully added to cart!")
-    return render_template("cart.html")
+    print session['cart']
+    return render_template("cart.html", cart=session['cart'])
 
 
 @app.route("/login", methods=["GET"])
