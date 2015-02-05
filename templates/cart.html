@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% block body %}
-{{ cart }}
+
 <table class="table table-striped">
     <tr><th>Melon Name</th><th>Quantity</th><th>Price</th><th>Total</th></tr>
-    <tr><td>Ancient Watermelon</td><td>5</td><td>$3.00</td><td>$15.00</td></tr>
+
+    <tr><td>{{ display_melon.common_name}}</td><td>{{ quantity }} </td><td>${{ '%0.2f'| format(display_melon.price) }}</td><td>${{ '%0.2f'| format(display_melon.price * quantity) }}</td></tr>
+
 
 </table>
 

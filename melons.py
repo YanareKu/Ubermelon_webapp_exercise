@@ -49,7 +49,7 @@ def add_to_cart(id):
     shopping cart page, while displaying the message
     "Successfully added to cart" """
     melon = model.get_melon_by_id(id)
-    
+
     if 'cart' not in session:
         session['cart'] = {}
 
@@ -59,8 +59,7 @@ def add_to_cart(id):
         session['cart'][melon.common_name] = 1      
 
     flash("Successfully added to cart!")
-    print session['cart']
-    return render_template("cart.html", cart=session['cart'])
+    return render_template("cart.html", display_melon = melon, quantity = session['cart'][melon.common_name])
 
 
 @app.route("/login", methods=["GET"])
