@@ -73,7 +73,14 @@ def show_login():
 def process_login():
     """TODO: Receive the user's login credentials located in the 'request.form'
     dictionary, look up the user, and store them in the session."""
-    return "Oops! This needs to be implemented"
+    if request.method == 'POST':
+        user_email = request.form.get('email')
+        user_password = request.form.get('password')
+    cursor = connect()
+    query = """SELECT givenname, surname FROM customers WHERE email=user_email;"""
+    cursor.execute(query)
+    
+    # return "Oops! This needs to be implemented"
 
 
 @app.route("/checkout")
