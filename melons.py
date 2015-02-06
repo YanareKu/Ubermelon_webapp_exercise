@@ -66,6 +66,7 @@ def add_to_cart(id):
 
 @app.route("/login", methods=["GET"])
 def show_login():
+
     return render_template("login.html")
 
 
@@ -75,13 +76,14 @@ def process_login():
     dictionary, look up the user, and store them in the session."""
     if request.method == 'POST':
         user_email = request.form.get('email')
-        user_password = request.form.get('password')
-    cursor = connect()
-    query = """SELECT givenname, surname FROM customers WHERE email=user_email;"""
-    cursor.execute(query)
-    
-    # return "Oops! This needs to be implemented"
 
+    customer = model.get_customer_by_email(user_email)
+
+    if 'user' not in session:
+        session['user'] = customer.givenname
+
+    flash("Successfully logged in!")
+    return redirect("/melons")
 
 @app.route("/checkout")
 def checkout():

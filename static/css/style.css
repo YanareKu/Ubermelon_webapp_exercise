@@ -25,6 +25,12 @@ li.warning {
     color: red;
 }
 
+li.hello {
+  color: #999;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 img.product-img {
     display: inline-block;
     max-width: 400px;
@@ -74,3 +80,4 @@ div.cart {
 img.melon-cart {
   height: 15px;
 }
+
